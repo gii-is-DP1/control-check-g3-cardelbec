@@ -16,11 +16,13 @@
 package org.springframework.samples.petclinic.pet;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
@@ -51,7 +53,11 @@ public class Visit extends BaseEntity {
 	@NotEmpty
 	@Column(name = "description")
 	private String description;
-
+	
+	@ManyToOne(optional = true)
+	@JoinColumn(name = "recovery_room_id")
+	private RecoveryRoom recoveryRoom;
+	
 	/**
 	 * Holds value of property pet.
 	 */
@@ -115,12 +121,11 @@ public class Visit extends BaseEntity {
 	}
 
 	public RecoveryRoom getRecoveryRoom() {
-		// To be implemented
-		return null;
+		return this.recoveryRoom;
 	}
 
 	public void setRecoveryRoom(RecoveryRoom room) {
-		// To be implemented
+		this.recoveryRoom = room;
 	}
 
 }
